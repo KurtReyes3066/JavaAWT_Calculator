@@ -7,6 +7,7 @@ copy your own files into this folder with exactly these names.
 |---|---|---|
 | Sweden | C418 | `sweden.mp3` (or `sweden.ogg`) |
 | Mice on Venus | C418 | `mice-on-venus.mp3` (or `mice-on-venus.ogg`) |
+| Wet Hands | C418 | `wet-hands.mp3` (or `wet-hands.ogg`) |
 
 - Tracks that are missing are skipped. With no files at all, the page shows a short notice and stays silent.
 - Browsers only allow sound after you interact with the page, so the music starts on your first click or key press.

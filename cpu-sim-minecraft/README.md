@@ -111,9 +111,9 @@ docs/ALGORITHMS.md      Exact rules and tie-breaking for every algorithm
 - The sun/moon button switches between the Night (dark) and Day (light) themes.
 - **Sound:** the note button turns the background music on and off, and the speaker button
   does the same for the sound effects (pickaxe hits, blocks breaking, the chest, footsteps).
-  The effects are generated in code. The music plays C418's "Sweden" and "Mice on Venus" in random
-  order, but the music files are not included: copy your own `sweden.mp3` and `mice-on-venus.mp3`
-  into the `music/` folder (see [music/README.md](music/README.md)). Sound starts after your first click.
+  The effects are generated in code. The music plays C418's "Sweden", "Mice on Venus" and "Wet Hands" in
+  random order, but the music files are not included: copy your own `sweden.mp3`, `mice-on-venus.mp3`
+  and `wet-hands.mp3` into the `music/` folder (see [music/README.md](music/README.md)). Sound starts after your first click.
 - If any input changes after a run, the results are marked **Outdated** and dimmed until you run again.
 - **Compare all 8** runs every algorithm on the same processes and marks the best value for each metric.
 - **CSV** exports the results table, metrics and Gantt segments.

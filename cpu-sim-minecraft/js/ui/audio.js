@@ -14,6 +14,7 @@
 const TRACKS = [
   { title: 'Sweden', artist: 'C418', files: ['music/sweden.mp3', 'music/sweden.ogg'] },
   { title: 'Mice on Venus', artist: 'C418', files: ['music/mice-on-venus.mp3', 'music/mice-on-venus.ogg'] },
+  { title: 'Wet Hands', artist: 'C418', files: ['music/wet-hands.mp3', 'music/wet-hands.ogg'] },
 ];
 const MUSIC_VOLUME = 0.4;
 const SFX_VOLUME = 0.55;
@@ -45,7 +46,7 @@ function playNext() {
     changed();
     if (!warnedMissing) {
       warnedMissing = true;
-      notify('No music files found. Put sweden.mp3 and mice-on-venus.mp3 in the music folder.', 'warn');
+      notify('No music files found. Put sweden.mp3, mice-on-venus.mp3 and wet-hands.mp3 in the music folder.', 'warn');
     }
     return;
   }
