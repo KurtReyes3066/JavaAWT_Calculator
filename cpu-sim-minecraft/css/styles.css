@@ -252,6 +252,8 @@ main { padding: 24px 28px 48px; outline: none; display: block; }
 .icon-btn:disabled { --b: var(--btn-off); --b-hi: var(--btn-off-hi); --b-lo: var(--btn-off-lo); color: #8a8a8a; cursor: not-allowed; }
 .icon-btn:disabled .ico { filter: none; }
 .icon-btn .ico { width: 20px; height: 20px; }
+.icon-btn[aria-pressed="false"] { color: #c9c9c9; }
+.topbar .icon-btn + .icon-btn { margin-left: -6px; }
 
 .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
 .toolbar .btn .ico { width: 16px; height: 16px; }
@@ -585,6 +587,8 @@ code { font-size: 1.05em; }
   .bar-row { grid-template-columns: 76px minmax(0, 1fr) 50px 16px; }
   .toolbar .btn { flex: 1 1 auto; }
   .scene-caption { font-size: 0.86rem; }
+  .topbar { gap: 10px; }
+  .topbar .icon-btn:not(.menu-btn) { width: 40px; height: 40px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

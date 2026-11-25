@@ -14,6 +14,7 @@ import * as store from './ui/history.js';
 import { renderAlgorithmDocs, renderAbout, tieBreakHTML } from './ui/pages.js';
 import { initTeam, renderTeam } from './ui/team.js';
 import { createScene } from './ui/scene.js';
+import { audio } from './ui/audio.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 
@@ -1014,6 +1015,25 @@ function closeMenu() {
   $('#menuBtn').setAttribute('aria-expanded', 'false');
 }
 
+/** Music and sound-effect switches in the top bar. */
+function initAudio() {
+  const mBtn = $('#musicBtn');
+  const sBtn = $('#sfxBtn');
+  const paint = () => {
+    const np = audio.nowPlaying();
+    mBtn.innerHTML = icon(audio.musicOn() ? 'music' : 'musicOff');
+    mBtn.setAttribute('aria-pressed', String(audio.musicOn()));
+    mBtn.title = audio.musicOn() ? `Music on${np ? `: ${np}` : ''}. Click to turn it off.` : 'Music off. Click to turn it on.';
+    sBtn.innerHTML = icon(audio.sfxOn() ? 'volume' : 'volumeOff');
+    sBtn.setAttribute('aria-pressed', String(audio.sfxOn()));
+    sBtn.title = audio.sfxOn() ? 'Sound effects on. Click to turn them off.' : 'Sound effects off. Click to turn them on.';
+  };
+  audio.init({ notify: toast, onChange: paint });
+  mBtn.addEventListener('click', () => audio.toggleMusic());
+  sBtn.addEventListener('click', () => audio.toggleSfx());
+  paint();
+}
+
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   const btn = $('#themeBtn');
@@ -1042,6 +1062,7 @@ function init() {
   bindCompare();
   bindHistory();
   initTeam({ toast, confirm: confirmAction });
+  initAudio();
 
   $('#algoDocs').addEventListener('click', (e) => {
     const a = e.target.closest('[data-pick]');

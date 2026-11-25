@@ -31,10 +31,10 @@ These are real captures of the running app, taken on 2026-11-25. The design rule
 
 ## Run it
 
-The project lives in `C:\xampp\htdocs\cpu-sim`.
+The project lives in `C:\xampp\htdocs\cpu-sim-minecraft`.
 
 1. Open the **XAMPP Control Panel** and start **Apache** and **MySQL**.
-2. Open <http://localhost/cpu-sim/>.
+2. Open <http://localhost/cpu-sim-minecraft/>.
 
 **Without Apache:** start only MySQL, double-click `start-server.bat` (it uses XAMPP's PHP),
 then open <http://localhost:8080>.
@@ -109,6 +109,11 @@ docs/ALGORITHMS.md      Exact rules and tie-breaking for every algorithm
   1.2 seconds at 1× so Steve has time to walk; use the Speed menu to go faster. With
   "reduce motion" turned on in the operating system, the scene shows still frames instead.
 - The sun/moon button switches between the Night (dark) and Day (light) themes.
+- **Sound:** the note button turns the background music on and off, and the speaker button
+  does the same for the sound effects (pickaxe hits, blocks breaking, the chest, footsteps).
+  The effects are generated in code. The music plays C418's "Sweden" and "Mice on Venus" in random
+  order, but the music files are not included: copy your own `sweden.mp3` and `mice-on-venus.mp3`
+  into the `music/` folder (see [music/README.md](music/README.md)). Sound starts after your first click.
 - If any input changes after a run, the results are marked **Outdated** and dimmed until you run again.
 - **Compare all 8** runs every algorithm on the same processes and marks the best value for each metric.
 - **CSV** exports the results table, metrics and Gantt segments.

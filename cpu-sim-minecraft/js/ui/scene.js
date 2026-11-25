@@ -17,6 +17,7 @@
  */
 import { textOn } from './gantt.js';
 import { rng, shade, PAL } from './textures.js';
+import { sfx } from './audio.js';
 
 /* ------------------------------------------------------------ geometry (art pixels) */
 const B = 12;            // block size
@@ -508,6 +509,51 @@ export function createScene() {
   }
 
   /** One complete picture for the current plan at progress p. */
+  /**
+   * How many of each sound-making moment have happened by progress p of a plan
+   * (pickaxe hits, footsteps, pick-ups…). Sounds play when a count goes up between frames.
+   */
+  function soundCounts(pl, p) {
+    const c = { hit: 0, step: 0, pick: 0, place: 0, brk: 0, open: 0, close: 0, done: 0 };
+    const stride = Math.PI * 2.4; // one footfall per half walk cycle
+    for (const s of pl.steve) {
+      if (p < s.t0) break;
+      const u = s.t1 > s.t0 ? clamp01((p - s.t0) / (s.t1 - s.t0)) : 1;
+      if (s.type === 'mine') {
+        const x = u * pl.swings;
+        if (x >= 0.4) c.hit += Math.floor(x - 0.4) + 1;
+      } else if (s.type === 'walk') {
+        const d = Math.abs(s.x1 - s.x0) * u;
+        c.step += Math.floor((s.d0 + d) / stride) - Math.floor(s.d0 / stride);
+      } else if (s.type === 'pick' || s.type === 'lift') {
+        if (u >= 0.4) c.pick++;
+      } else if (s.type === 'place' || s.type === 'drop') {
+        if (u >= 0.9) c.place++;
+      }
+    }
+    if (pl.brk && p >= pl.brk.t0) c.brk++;
+    if (pl.item) {
+      if (p >= pl.item.t1 - 0.12) c.open++;
+      if (p >= Math.min(0.97, pl.item.t1 + 0.14)) c.close++;
+    }
+    if (pl.final && pl.brk && p >= Math.min(0.97, pl.brk.t1)) c.done++;
+    return c;
+  }
+
+  let soundPlan = null;
+  let soundPrev = null;
+  function playSounds(pl, p) {
+    if (pl !== soundPlan) {
+      soundPlan = pl;
+      // A jump (no animation) starts "already finished", so it makes no sound.
+      soundPrev = soundCounts(pl, anim ? 0 : 1);
+    }
+    if (!anim || !run) return;
+    const now = soundCounts(pl, p);
+    for (const k of Object.keys(now)) if (now[k] > soundPrev[k]) sfx(k);
+    soundPrev = now;
+  }
+
   function draw(p, clock) {
     if (!geo) return;
     const { W, H, gy, S, dpr } = geo;
@@ -518,6 +564,7 @@ export function createScene() {
     ag.drawImage(worldLayer, 0, 0);
 
     const pl = plan;
+    playSounds(pl, p);
     const colors = run?.colors || new Map();
     const st = steveAt(pl, p, clock);
 
