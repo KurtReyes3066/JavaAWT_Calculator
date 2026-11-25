@@ -1,0 +1,13 @@
+{
+  "name": "cpu-scheduling-simulator",
+  "version": "1.0.0",
+  "description": "Interactive CPU scheduling simulator (FCFS, SJF, SRTF, Priority, RR, MLQ, MLFQ) with a tested scheduling engine.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
